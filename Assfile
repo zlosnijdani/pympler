@@ -1,0 +1,28 @@
+project: pympler
+git: git@github.com/zlosnijdani/pympler.git
+description: Memory Profiler
+module: pympler
+
+tasks:
+
+  gotoenv:
+    private: true
+    template: activate@pymodule
+
+  install:
+    related:
+      - build
+      - gotoenv
+    template: pymodule
+    src: setup.py
+    then:
+      template: deactivate@pymodule
+
+  build:
+    related: clean
+    template: pymodule
+    src: setup.py
+
+  clean:
+    recursive: false
+    shell: rm -rf build
